@@ -1,0 +1,22 @@
+# 3-Tier Memory Management System - Python Dependencies
+
+# Core semantic indexing
+sentence-transformers>=2.3.0
+chromadb>=0.4.22
+
+# Quarto .qmd file support
+quartodoc
+nbformat
+jupyter-client
+
+# File system monitoring
+watchdog>=3.0.0
+
+# Task scheduling
+schedule>=1.2.0
+
+# Utilities
+markdown>=3.5.0
+pyyaml>=6.0
+pandas>=2.0.0
+numpy>=1.24.0
