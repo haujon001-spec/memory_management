@@ -34,6 +34,11 @@
   - Decide: commit, delete, or keep as draft
 - [ ] Update README.md examples to show multi-project usage
 - [ ] Add command-line usage examples for `file_watcher.py`
+- [ ] **Review and validate `ADD_NEW_PROJECT_PROCEDURE.md`**
+  - This 10-step procedure covers systematic project onboarding
+  - **Step 7**: Peacock color code assignment with color palette
+  - Documents automation approach for future projects
+  - Includes checklist template
 
 ### 5. Test Semantic Search Across All Projects
 - [ ] Run semantic search query for each project
@@ -47,9 +52,22 @@
 - [ ] Check that all 6 projects can be searched simultaneously
 - [ ] Validate performance impact of multi-project indexing
 
+### 7. Systematic New Project Onboarding (Step 7 = Peacock Color)
+- [ ] Review `ADD_NEW_PROJECT_PROCEDURE.md` - 10-step systematic guide
+- [ ] Validate all steps are accurate and tested
+- [ ] **Step 7 specification**: Assign unique peacock color code
+  - Color palette defined with domain mapping
+  - Color selection strategy documented
+  - Integration with projects.json and .vscode/settings.json verified
+- [ ] Test procedure with a hypothetical new project
+- [ ] Document any edge cases or improvements needed
+- [ ] Create `add_project.ps1` automation script (if feasible)
+
 ---
 
-## Notes
+## Files Added/Updated Today
+- `ADD_NEW_PROJECT_PROCEDURE.md` - Systematic guide for onboarding new projects
+- `TODOLIST_08MAR2026.md` - Updated with new task for project onboarding procedure
 - All core scripts now support multi-project operation ✓
 - UTF-8 encoding issues resolved ✓
 - Peacock colors configured for openclaw and pets ✓

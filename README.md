@@ -22,6 +22,7 @@ A sophisticated three-tier memory architecture for multi-project workspaces, com
 - **[Implementation Complete](IMPLEMENTATION_COMPLETE.md)** - Project status and verification
 - **[OpenClaw Integration](OPENCLAW_INTEGRATION.md)** - Integration guide for OpenClaw gateway
 - **[GitHub Setup](GITHUB_SETUP.md)** - Repository setup and deployment instructions
+- **[Add New Project Procedure](ADD_NEW_PROJECT_PROCEDURE.md)** - 10-step guide for onboarding new projects with peacock color assignment
 
 ## 🚀 Quick Start
 
