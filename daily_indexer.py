@@ -136,26 +136,26 @@ class DailyIndexer:
             workspace_root=workspace_root
         )
         
-        # Find files to index
-        docs_dir = workspace_root / 'docs'
-        sessions_dir = workspace_root / 'sessions'
-        notes_dir = workspace_root / 'notes'
+        # Directories to exclude from indexing
+        excluded_dirs = {'.venv', '.vscode', '__pycache__', '.git', 'node_modules', '.pytest_cache', 'dist', 'build'}
         
         files_to_index = []
         
-        # Collect .qmd and .md files
-        for directory, collection in [
-            (docs_dir, 'docs'),
-            (sessions_dir, 'sessions'),
-            (notes_dir, 'docs')
-        ]:
-            if not directory.exists():
-                continue
-            
-            for pattern in ['*.qmd', '*.md']:
-                for filepath in directory.rglob(pattern):
-                    if self._should_reindex_file(filepath):
-                        files_to_index.append((filepath, collection))
+        # Recursively collect all .qmd and .md files (excluding certain directories)
+        for pattern in ['*.qmd', '*.md']:
+            for filepath in workspace_root.rglob(pattern):
+                # Skip if file is in excluded directory
+                if any(excluded_dir in filepath.parts for excluded_dir in excluded_dirs):
+                    continue
+                
+                # Determine collection based on directory name
+                if 'sessions' in filepath.parts:
+                    collection = 'sessions'
+                else:
+                    collection = 'docs'
+                
+                if self._should_reindex_file(filepath):
+                    files_to_index.append((filepath, collection))
         
         # Index files
         indexed_count = 0
