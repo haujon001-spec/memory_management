@@ -108,13 +108,17 @@ class QmdParser:
 
 
 if __name__ == '__main__':
-    # Test parser
+    # Test parser with any available .qmd file
     parser = QmdParser()
     
-    # Test with a sample .qmd file (if exists)
-    test_file = Path(r'C:\Users\haujo\projects\DEV\trading\docs\planning\HSMM_PureModelTradingProfiler_V2.md')
+    from pathlib import Path
     
-    if test_file.exists():
+    # Search for any .qmd file in DEV projects
+    dev_root = Path(r'C:\Users\haujo\projects\DEV')
+    test_files = list(dev_root.rglob('*.qmd'))
+    
+    if test_files:
+        test_file = test_files[0]
         print(f"Testing parser with: {test_file}")
         parsed = parser.parse_qmd(test_file)
         
@@ -124,4 +128,17 @@ if __name__ == '__main__':
         print(f"Modified: {parsed['modified']}")
         print(f"Content length: {len(parsed['content'])} chars")
     else:
-        print("Test file not found. Parser ready for use.")
+        # Fallback to specific file if it exists
+        test_file = Path(r'C:\Users\haujo\projects\DEV\trading\docs\planning\HSMM_PureModelTradingProfiler_V2.md')
+        
+        if test_file.exists():
+            print(f"Testing parser with: {test_file}")
+            parsed = parser.parse_qmd(test_file)
+            
+            print(f"\nTitle: {parser.extract_title(parsed)}")
+            print(f"Tags: {parser.extract_tags(parsed)}")
+            print(f"Code cells: {len(parsed['code_cells'])}")
+            print(f"Modified: {parsed['modified']}")
+            print(f"Content length: {len(parsed['content'])} chars")
+        else:
+            print("No QMD files found. Parser ready for use.")

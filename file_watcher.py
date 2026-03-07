@@ -158,12 +158,46 @@ def start_file_watcher(project_id: str, workspace_root: Path):
 
 
 if __name__ == '__main__':
-    # Start file watcher for trading project
+    import sys
+    import json
+    
+    # Parse command-line arguments
+    project_id = sys.argv[1] if len(sys.argv) > 1 else None
+    
     print("\n" + "=" * 80)
     print("FILE WATCHER - REAL-TIME INDEXING")
     print("=" * 80)
     
-    start_file_watcher(
-        project_id='trading',
-        workspace_root=Path(r'C:\Users\haujo\projects\DEV\trading')
-    )
+    if project_id:
+        # Load project from config
+        config_path = Path.home() / '.openclaw' / 'projects.json'
+        if config_path.exists():
+            with open(config_path, 'r', encoding='utf-8-sig') as f:
+                data = json.load(f)
+                projects = {p['id']: p for p in data.get('projects', [])}
+                
+                if project_id in projects:
+                    project = projects[project_id]
+                    print(f"\n[FileWatcher] Starting for project: {project_id}")
+                    print(f"[FileWatcher] Watching: {project['workspace_root']}\n")
+                    
+                    start_file_watcher(
+                        project_id=project_id,
+                        workspace_root=Path(project['workspace_root'])
+                    )
+                else:
+                    print(f"[ERROR] Project '{project_id}' not found in configuration")
+                    print(f"[INFO] Available projects: {', '.join(projects.keys())}")
+        else:
+            print(f"[ERROR] Configuration not found: {config_path}")
+    else:
+        # Default: watch trading project
+        print("\n[FileWatcher] Usage: python file_watcher.py <project_id>")
+        print("[FileWatcher] Example: python file_watcher.py trading")
+        print("[FileWatcher] Example: python file_watcher.py data_visualization")
+        print("\n[FileWatcher] Starting default watcher for 'trading' project...\n")
+        
+        start_file_watcher(
+            project_id='trading',
+            workspace_root=Path(r'C:\Users\haujo\projects\DEV\trading')
+        )

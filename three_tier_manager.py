@@ -147,23 +147,48 @@ class ThreeTierMemoryManager:
 
 
 if __name__ == '__main__':
-    # Test 3-tier memory manager
+    # Test 3-tier memory manager across all projects
+    import json
+    
     print("\n" + "=" * 80)
-    print("THREE-TIER MEMORY MANAGER - TEST")
+    print("THREE-TIER MEMORY MANAGER - TEST ALL PROJECTS")
     print("=" * 80)
     
+    # Load projects from configuration
+    config_path = Path.home() / '.openclaw' / 'projects.json'
+    if config_path.exists():
+        with open(config_path, 'r', encoding='utf-8-sig') as f:
+            data = json.load(f)
+            projects = data.get('projects', [])
+    else:
+        # Fallback to trading project
+        projects = [{
+            'id': 'trading',
+            'workspace_root': r'C:\Users\haujo\projects\DEV\trading',
+            'domain': 'trading'
+        }]
+    
+    # Test first project as example
+    project = projects[0]
+    
+    print(f"\nTesting with project: {project['id']}")
+    
     manager = ThreeTierMemoryManager(
-        project_id='trading',
-        workspace_root=Path(r'C:\Users\haujo\projects\DEV\trading'),
-        domain='trading'
+        project_id=project['id'],
+        workspace_root=Path(project['workspace_root']),
+        domain=project['domain']
     )
     
     # Test enriched query
     print("\nTesting enriched query...")
-    query = "How does HSMM regime detection work?"
-    enriched_context = manager.enrich_query(query, context_size=3)
+    query = f"Tell me about {project['id']} project"
     
-    print(f"\nQuery: {query}")
-    print("\nEnriched Context:")
-    print("-" * 80)
-    print(enriched_context)
+    try:
+        enriched_context = manager.enrich_query(query, context_size=3)
+        
+        print(f"\nQuery: {query}")
+        print("\nEnriched Context (first 500 chars):")
+        print("-" * 80)
+        print(enriched_context[:500] + "...")
+    except Exception as e:
+        print(f"\n[Note] Query failed (expected if project has no documents): {e}")
