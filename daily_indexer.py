@@ -89,6 +89,27 @@ class DailyIndexer:
                 'workspace_root': r'C:\Users\haujo\projects\DEV\X_Monetization',
                 'domain': 'trading',
                 'peacock': '#FF6B6B'
+            },
+            {
+                'id': 'memory_management',
+                'name': 'memory_management',
+                'workspace_root': r'C:\Users\haujo\projects\DEV\memory_management',
+                'domain': 'infrastructure',
+                'peacock': '#9b59b6'
+            },
+            {
+                'id': 'openclaw',
+                'name': 'openclaw',
+                'workspace_root': r'C:\Users\haujo\projects\DEV\openclaw',
+                'domain': 'infrastructure',
+                'peacock': '#8B4513'
+            },
+            {
+                'id': 'pets',
+                'name': 'pets',
+                'workspace_root': r'C:\Users\haujo\projects\DEV\pets',
+                'domain': 'data',
+                'peacock': '#FFD700'
             }
         ]
     
